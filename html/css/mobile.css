@@ -1,0 +1,367 @@
+/* 移动端样式 - 专为移动设备优化 */
+
+/* 移动端头部 */
+.mobile-report-header {
+    display: none;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 16px;
+    text-align: center;
+}
+
+.mobile-report-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.mobile-buttons {
+    display: none;
+    padding: 16px;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-buttons .ant-btn {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+/* 响应式设计 - 移动端适配 */
+@media (max-width: 768px) {
+    /* 基础布局调整 */
+    body {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+    
+    /* 隐藏PC端侧边栏 */
+    .sidebar {
+        display: none;
+    }
+    
+    /* 显示移动端专用元素 */
+    .mobile-report-header,
+    .mobile-buttons {
+        display: block !important;
+    }
+    
+    /* 隐藏PC端标签页 */
+    .top-tabs {
+        display: none;
+    }
+    
+    /* 表格移动端适配 */
+    .ant-table-cell {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .ant-table-thead > tr > th {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .ant-table-tbody > tr > td {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    /* 表格水平滚动 */
+    .ant-table-wrapper {
+        overflow-x: auto;
+    }
+    
+    .ant-table {
+        min-width: 600px;
+    }
+    
+    /* 内容区块移动端优化 */
+    .content-section {
+        margin-bottom: 24px;
+    }
+    
+    .content-section h2 {
+        font-size: 18px;
+        margin: 0 0 12px 0;
+    }
+    
+    .content-section h3 {
+        font-size: 16px;
+        margin: 16px 0 8px 0;
+    }
+    
+    .content-section h4 {
+        font-size: 14px;
+        margin: 12px 0 6px 0;
+    }
+    
+    .content-section p {
+        font-size: 13px;
+        line-height: 1.4;
+        margin: 0 0 12px 0;
+    }
+    
+    .content-section ul {
+        margin: 0 0 12px 0;
+        padding-left: 16px;
+    }
+    
+    .content-section li {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 4px;
+    }
+    
+    /* 按钮移动端优化 */
+    .ant-btn {
+        height: 36px;
+        padding: 6px 12px;
+        font-size: 14px;
+        min-width: 80px;
+        touch-action: manipulation;
+    }
+    
+    .mobile-buttons .ant-btn {
+        margin-right: 6px;
+        margin-bottom: 6px;
+        flex: 1;
+        min-width: auto;
+    }
+    
+    /* 卡片移动端优化 */
+    .ant-card {
+        margin-bottom: 16px;
+        border-radius: 8px;
+    }
+    
+    .ant-card-head {
+        padding: 0 16px;
+        min-height: 44px;
+        font-size: 15px;
+    }
+    
+    .ant-card-body {
+        padding: 16px;
+    }
+    
+    /* 分页器移动端优化 */
+    .ant-pagination {
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 16px;
+    }
+    
+    .ant-pagination-item,
+    .ant-pagination-prev,
+    .ant-pagination-next {
+        min-width: 36px;
+        height: 36px;
+        line-height: 34px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+    }
+    
+    /* 折叠面板移动端优化 */
+    .ant-collapse-header {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .ant-collapse-content-box {
+        padding: 12px;
+    }
+    
+    /* 骨架屏移动端优化 */
+    .ant-skeleton-title {
+        height: 14px;
+    }
+    
+    .ant-skeleton-paragraph > li {
+        height: 14px;
+    }
+    
+    .ant-skeleton-paragraph > li + li {
+        margin-top: 12px;
+    }
+    
+    /* 表格容器移动端优化 */
+    .table-container {
+        margin-bottom: 16px;
+        overflow-x: auto;
+    }
+    
+    .table-container .card {
+        border-radius: 6px;
+    }
+    
+    .table-container .card-header {
+        padding: 0 12px;
+    }
+    
+    .table-container .card-body {
+        padding: 12px;
+    }
+    
+    .table-container .table {
+        font-size: 12px;
+    }
+    
+    .table-container .table th,
+    .table-container .table td {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+    
+    /* 触摸优化 */
+    .menu-item,
+    .ant-btn,
+    .ant-pagination-item,
+    .ant-collapse-header {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* 滚动优化 */
+    .content-area {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .ant-table-wrapper {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* 字体大小调整 */
+    .ant-table-title {
+        font-size: 14px;
+        padding: 12px;
+    }
+    
+    /* 间距优化 */
+    .main-content {
+        flex-direction: column;
+    }
+    
+    /* 导航优化（如果在移动端显示的话） */
+    .ant-menu-item,
+    .ant-menu-submenu-title {
+        padding: 0 12px 0 16px;
+        line-height: 36px;
+        font-size: 13px;
+    }
+    
+    .ant-menu-sub .ant-menu-item {
+        padding: 0 12px 0 32px;
+    }
+    
+    .ant-menu-sub .ant-menu-sub .ant-menu-item {
+        padding: 0 12px 0 48px;
+    }
+}
+
+/* 超小屏幕优化 (320px - 480px) */
+@media (max-width: 480px) {
+    .content-area {
+        padding: 12px;
+    }
+    
+    .mobile-report-header {
+        padding: 12px;
+    }
+    
+    .mobile-report-header h2 {
+        font-size: 16px;
+    }
+    
+    .mobile-buttons {
+        padding: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .mobile-buttons .ant-btn {
+        flex: 1;
+        margin: 0;
+        min-width: calc(50% - 4px);
+        font-size: 13px;
+    }
+    
+    .content-section h2 {
+        font-size: 16px;
+    }
+    
+    .content-section h3 {
+        font-size: 15px;
+    }
+    
+    .content-section h4 {
+        font-size: 13px;
+    }
+    
+    .content-section p,
+    .content-section li {
+        font-size: 12px;
+    }
+    
+    .ant-card-head {
+        font-size: 14px;
+        padding: 0 12px;
+    }
+    
+    .ant-card-body {
+        padding: 12px;
+    }
+    
+    .table-container .table th,
+    .table-container .table td {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
+}
+
+/* 横屏优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .mobile-report-header {
+        padding: 8px 16px;
+    }
+    
+    .mobile-report-header h2 {
+        font-size: 16px;
+    }
+    
+    .content-area {
+        padding: 12px 16px;
+    }
+    
+    .ant-btn {
+        height: 32px;
+        padding: 4px 12px;
+    }
+}
+
+/* 可访问性优化 */
+@media (max-width: 768px) {
+    /* 增强点击区域 */
+    .menu-item {
+        min-height: 44px;
+    }
+    
+    .ant-btn {
+        min-height: 44px;
+    }
+    
+    .ant-pagination-item,
+    .ant-pagination-prev,
+    .ant-pagination-next {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    /* 增强对比度 */
+    .content-section p,
+    .content-section li {
+        color: rgba(0, 0, 0, 0.75);
+    }
+}

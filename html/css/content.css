@@ -1,0 +1,60 @@
+/* 内容区域专用样式 */
+
+/* 确保内容区域中的展开符号不会显示 */
+.section-content .expand-icon,
+.recommend-text .expand-icon,
+.section-content-container .expand-icon {
+    display: none !important;
+}
+
+/* 确保内容区域中的导航元素不会干扰布局 */
+.section-content .menu-item,
+.recommend-text .menu-item,
+.section-content-container .menu-item {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: none !important;
+}
+
+/* 确保正文中的文本显示正常 */
+.section-content p,
+.recommend-text p,
+.section-content-container p {
+    margin-bottom: 1em;
+}
+
+/* 清理可能的导航样式影响 */
+.section-content *,
+.recommend-text *,
+.section-content-container * {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* 移除正文中可能的导航相关转换效果 */
+.section-content .expanded,
+.recommend-text .expanded,
+.section-content-container .expanded {
+    transform: none !important;
+}
+
+/* 防止正文中出现▼符号 */
+.section-content-container::after,
+.section-content::after,
+.recommend-text::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* 移除标题中的折叠图标 */
+.content-section > h2 .collapse-icon {
+    display: none !important;
+}
+
+/* 完全屏蔽折叠图标类 */
+.collapse-icon {
+    display: none !important;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资企业月报</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pc.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/content.css">
+    <!-- Ant Design Icons CSS -->
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1329669_u69w8yhxdu.css">
+</head>
+<body>
+    <div id="app">
+        <div class="home-page">
+            <!-- 顶部区域 -->
+            <div class="top-header">
+                <!-- Tabs -->
+                <div class="top-tabs">
+                    <div class="ant-tabs ant-tabs-top css-1p3hq3p">
+                        <div role="tablist" class="ant-tabs-nav">
+                            <div class="ant-tabs-nav-wrap">
+                                <div class="ant-tabs-nav-list">
+                                    <!-- Tab导航将由JS动态生成 -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-tabs-content-holder">
+                            <div class="ant-tabs-content ant-tabs-content-top">
+                                <!-- Tab内容将由JS动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 移动端标题区域 -->
+            <div class="mobile-report-header" style="display: none;">
+                <h1 class="mobile-report-title"></h1>
+                <div class="mobile-report-info">
+                    <span class="company-name"></span>
+                    <span class="generate-date"></span>
+                </div>
+            </div>
+
+            <!-- 移动端按钮样式 -->
+            <div class="mobile-buttons" style="display: none;">
+                <!-- 移动端Tab按钮将由JS动态生成 -->
+            </div>
+
+            <!-- 主体内容区域 -->
+            <div class="main-content">
+                <!-- 左侧导航 -->
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <span>快捷导航</span>
+                    </div>
+                    <div class="navigation-menu">
+                        <div class="custom-menu" id="navigation-container">
+                            <!-- 导航菜单将由JS动态生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧正文 -->
+                <div class="content-area">
+                    <div class="content-wrapper">
+                        <!-- 桌面端标题区域 -->
+                        <div class="report-header">
+                            <h1 class="report-title"><span id="current-tab-name"></span></h1>
+                            <div class="report-info">
+                                <span class="company-name"></span>
+                                <span class="generate-date"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab 内容区域将由JS动态生成 -->
+                        <div id="report-content-container">
+                            <!-- 报告内容将由JS动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载组件脚本 -->
+    <script src="js/navigation.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/tips.js"></script>
+    <script src="js/dataLoader.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
