@@ -1,4 +1,5 @@
 /* 移动端样式 - 专为移动设备优化 */
+/* 注意：此文件需要在 main-combined.css 后引入以确保样式优先级 */
 
 /* 移动端头部 */
 .mobile-report-header {
