@@ -13,11 +13,11 @@ async function loadReportData() {
             "name": "运行分析",
             "titleList": [
               {
-                "title": "综合分析",
+                "title": "1、综合分析",
                 "type": "h1",
                 "titleList": [
                   {
-                    "title": "项目概述",
+                    "title": "1.1、项目概述",
                     "type": "h2"
                   },
                   {
@@ -42,44 +42,42 @@ async function loadReportData() {
                     ]
                   },
                   {
-                    "title": "项目概述",
+                    "title": "1.2、项目概述",
                     "type": "h2"
                   },
                   {
-                    "title": "项目概述",
+                    "title": "1.2.1、项目概述",
                     "type": "h3"
                   }
                 ]
               },
               {
-                "title": "综合分析",
+                "title": "2、综合分析",
                 "type": "h1",
                 "titleList": [
                   {
-                    "title": "项目概述",
-                    "type": "h2",
-                    "contentList": [
-                      {
-                        "type": "text",
-                        "content": "这里是文本内容，文本内容需直接返回css样式支持的html格式字符串"
-                      },
-                      {
-                        "type": "tips",
-                        "name": "下月改善建议",
-                        "content": "这里是正文内容，文本内容需直接返回css样式支持的html格式字符串"
-                      },
-                      {
-                        "type": "table",
-                        "columns": [
-                          { "title": "接口名称", "dataIndex": "name", "key": "name" },
-                          { "title": "请求方式", "dataIndex": "method", "key": "method" },
-                          { "title": "请求URL", "dataIndex": "url", "key": "url" }
-                        ],
-                        "dataSource": [
-                          { "key": "1", "name": "获取用户信息", "method": "GET", "url": "/api/user/info"},
-                          { "key": "2", "name": "更新用户信息", "method": "POST", "url": "/api/user/update"}
-                        ]
-                      }
+                    "title": "2.1、项目概述",
+                    "type": "h2",   
+                  },
+                  {
+                    "type": "text",
+                    "content": "这里是文本内容，文本内容需直接返回css样式支持的html格式字符串"
+                  },
+                  {
+                    "type": "tips",
+                    "name": "下月改善建议",
+                    "content": "这里是正文内容，文本内容需直接返回css样式支持的html格式字符串"
+                  },
+                  {
+                    "type": "table",
+                    "columns": [
+                      { "title": "接口名称", "dataIndex": "name", "key": "name" },
+                      { "title": "请求方式", "dataIndex": "method", "key": "method" },
+                      { "title": "请求URL", "dataIndex": "url", "key": "url" }
+                    ],
+                    "dataSource": [
+                      { "key": "1", "name": "获取用户信息", "method": "GET", "url": "/api/user/info"},
+                      { "key": "2", "name": "更新用户信息", "method": "POST", "url": "/api/user/update"}
                     ]
                   }
                 ]
@@ -311,17 +309,45 @@ function generateContent(data) {
             section.id = sectionId;
             section.className = 'content-section';
             
-            // 添加一级标题，确保不添加额外序号
-            const h1Element = document.createElement('h2'); // 在HTML结构中使用h2表示一级标题
+            // 创建标题容器，包含标题和折叠按钮
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'section-header';
+            
+            // 添加一级标题，使用div元素渲染
+            const h1Element = document.createElement('div'); 
             h1Element.textContent = title.title;
-            // 防止自动编号样式
-            h1Element.className = 'no-auto-numbering'; 
-            section.appendChild(h1Element);
+            h1Element.className = 'h1-title'; 
+            headerDiv.appendChild(h1Element);
+            
+            // 添加折叠按钮
+            const toggleBtn = document.createElement('span');
+            toggleBtn.className = 'section-toggle-btn anticon anticon-down';
+            // 添加备选SVG图标
+            toggleBtn.innerHTML = '<svg viewBox="64 64 896 896" focusable="false" data-icon="down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg>';
+            headerDiv.appendChild(toggleBtn);
+            
+            section.appendChild(headerDiv);
             
             // 创建内容容器，将所有内容放在这个容器中
             const contentContainer = document.createElement('div');
             contentContainer.className = 'section-content-container';
+            contentContainer.setAttribute('data-section', sectionId);
             section.appendChild(contentContainer);
+            
+            // 为折叠按钮添加点击事件
+            toggleBtn.addEventListener('click', function() {
+                if (contentContainer.classList.contains('collapsed')) {
+                    // 展开内容
+                    contentContainer.classList.remove('collapsed');
+                    toggleBtn.className = 'section-toggle-btn anticon anticon-down';
+                    toggleBtn.innerHTML = '<svg viewBox="64 64 896 896" focusable="false" data-icon="down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg>';
+                } else {
+                    // 折叠内容
+                    contentContainer.classList.add('collapsed');
+                    toggleBtn.className = 'section-toggle-btn anticon anticon-up';
+                    toggleBtn.innerHTML = '<svg viewBox="64 64 896 896" focusable="false" data-icon="up" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"></path></svg>';
+                }
+            });
             
             // 添加子内容到内容容器中
             if (title.titleList && title.titleList.length > 0) {
@@ -340,18 +366,18 @@ function generateSectionContent(parentElement, contentList) {
     contentList.forEach(item => {
         if (item.type === 'h2') {
             // 创建二级标题
-            const h2Element = document.createElement('h3'); // 在HTML中使用h3表示二级标题
+            const h2Element = document.createElement('div'); // 使用div元素表示二级标题
             h2Element.textContent = item.title;
             h2Element.id = item.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-            h2Element.className = 'no-auto-numbering'; // 防止自动编号样式
+            h2Element.className = 'h2-title';
             parentElement.appendChild(h2Element);
             
         } else if (item.type === 'h3') {
             // 创建三级标题
-            const h3Element = document.createElement('h4'); // 在HTML中使用h4表示三级标题
+            const h3Element = document.createElement('div'); // 使用div元素表示三级标题
             h3Element.textContent = item.title; 
             h3Element.id = item.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-            h3Element.className = 'no-auto-numbering'; // 防止自动编号样式
+            h3Element.className = 'h3-title';
             parentElement.appendChild(h3Element);
             
         } else if (item.type === 'text') {
@@ -360,6 +386,8 @@ function generateSectionContent(parentElement, contentList) {
             textDiv.className = 'section-content';
             // 直接使用内容，不添加额外元素
             textDiv.innerHTML = item.content;
+            // 设置字体大小
+            textDiv.style.fontSize = '14px';
             parentElement.appendChild(textDiv);
             
         } else if (item.type === 'tips') {

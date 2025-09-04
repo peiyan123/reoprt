@@ -68,65 +68,62 @@ class Navigation {
             if (!isVisible) return;
             
             // 确保section有标题和ID
-            const h2Element = section.querySelector('h2');
-            if (!h2Element || !section.id) return;
+            const h1Element = section.querySelector('.h1-title');
+            if (!h1Element || !section.id) return;
             
             visibleSectionIndex++;
             const sectionNumber = visibleSectionIndex;
             
-            // 获取原始标题文本并更新标题显示编号
-            const originalTitle = h2Element.textContent.trim().replace(/^\d+\.\s*/, '');
-            h2Element.textContent = `${sectionNumber}. ${originalTitle}`;
+            // 获取原始标题文本，保持原有编号
+            const originalTitle = h1Element.textContent.trim();
             
             // 创建section数据
             const sectionData = {
                 key: section.id,
-                title: `${sectionNumber}. ${originalTitle}`,
+                title: originalTitle,
                 children: []
             };
             
-            // 获取有效的子标题元素
-            const allHeadings = Array.from(section.querySelectorAll('h3, h4')).filter(heading => {
+            // 获取有效的子标题元素（二级标题和三级标题）
+            const allHeadings = Array.from(section.querySelectorAll('.h2-title, .h3-title')).filter(heading => {
                 return !heading.closest('.section-content');
             }).sort((a, b) => {
                 return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
             });
             
             // 处理子标题
-            let h3Counter = 0;
-            let currentH3Data = null;
+            let h2Counter = 0;
+            let currentH2Data = null;
             
             allHeadings.forEach(heading => {
-                if (heading.tagName === 'H3') {
-                    // 处理H3标题
-                    h3Counter++;
-                    const h3Id = heading.id || `${section.id}-h3-${h3Counter - 1}`;
-                    if (!heading.id) heading.id = h3Id;
+                if (heading.classList.contains('h2-title')) {
+                    // 处理二级标题
+                    h2Counter++;
+                    const h2Id = heading.id || `${section.id}-h2-${h2Counter - 1}`;
+                    if (!heading.id) heading.id = h2Id;
                     
-                    const originalH3Title = heading.textContent.trim().replace(/^\d+\.\d+\s*/, '');
-                    heading.textContent = `${sectionNumber}.${h3Counter} ${originalH3Title}`;
+                    const originalH2Title = heading.textContent.trim();
                     
-                    currentH3Data = {
-                        key: h3Id,
-                        title: `${sectionNumber}.${h3Counter} ${originalH3Title}`,
+                    currentH2Data = {
+                        key: h2Id,
+                        title: originalH2Title,
                         children: [],
-                        h4Counter: 0
+                        h3Counter: 0
                     };
                     
-                    sectionData.children.push(currentH3Data);
+                    sectionData.children.push(currentH2Data);
                     
-                } else if (heading.tagName === 'H4' && currentH3Data) {
-                    // 处理H4标题
-                    currentH3Data.h4Counter++;
-                    const h4Id = heading.id || `${currentH3Data.key}-h4-${currentH3Data.h4Counter - 1}`;
-                    if (!heading.id) heading.id = h4Id;
+                } else if (heading.classList.contains('h3-title') && currentH2Data) {
+                    // 处理三级标题
+                    currentH2Data.h3Counter++;
+                    const h3Id = heading.id || `${currentH2Data.key}-h3-${currentH2Data.h3Counter - 1}`;
+                    if (!heading.id) heading.id = h3Id;
                     
-                    const originalH4Title = heading.textContent.trim().replace(/^\d+\.\d+\.\d+\s*/, '');
-                    heading.textContent = `${sectionNumber}.${h3Counter}.${currentH3Data.h4Counter} ${originalH4Title}`;
+                    const originalH3Title = heading.textContent.trim();
                     
-                    currentH3Data.children.push({
-                        key: h4Id,
-                        title: `${sectionNumber}.${h3Counter}.${currentH3Data.h4Counter} ${originalH4Title}`
+                    currentH2Data.children.push({
+                        key: h3Id,
+                        title: originalH3Title
                     });
                 }
             });

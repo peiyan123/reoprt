@@ -1,5 +1,32 @@
 /* 内容区域专用样式 */
 
+/* 标题和正文样式 */
+.h1-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #303133;
+    margin-bottom: 16px;
+    margin-top: 24px;
+}
+
+.h2-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    margin-top: 20px;
+}
+
+.h3-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 16px;
+}
+
+.section-content {
+    font-size: 14px;
+}
+
 /* 确保内容区域中的展开符号不会显示 */
 .section-content .expand-icon,
 .recommend-text .expand-icon,
@@ -16,6 +43,54 @@
     margin: 0 !important;
     border: none !important;
     background: none !important;
+}
+
+/* 一级标题折叠展开功能 */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 10px;
+    padding: 8px 2px 8px 3px;
+    background: #F5F5F5;
+    border-radius: 4px;
+}
+
+.section-header .h1-title {
+    margin: 0;
+    flex: 1;
+}
+
+.section-toggle-btn {
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 16px;
+    color: #808080;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.section-toggle-btn svg {
+    font-size: 14px;
+}
+
+.section-toggle-btn:hover {
+    color: #a0a0a0;
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.section-content-container {
+    margin-bottom: 24px;
+}
+
+.section-content-container.collapsed {
+    display: none;
 }
 
 /* 确保正文中的文本显示正常 */
