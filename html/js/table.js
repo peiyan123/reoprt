@@ -62,6 +62,45 @@ class Table {
         if (this.pagination) {
             this.bindPaginationEvents();
         }
+        
+        // 确保表格可滚动，特别是在移动设备上
+        this.ensureTableScrollable();
+    }
+    
+    /**
+     * 确保表格可滚动
+     * 在移动设备上特别重要
+     */
+    ensureTableScrollable() {
+        // 添加最外层容器类以确保滚动
+        this.container.classList.add('table-container');
+        
+        // 获取表格容器元素
+        const tableWrapper = this.container.querySelector('.ant-table-wrapper');
+        
+        if (tableWrapper) {
+            // 移除内部元素的滚动设置，避免多重滚动条
+            tableWrapper.style.overflow = 'visible';
+            tableWrapper.style.width = '100%';
+        }
+        
+        // 获取所有内部滚动容器并移除其滚动设置
+        const innerScrollContainers = this.container.querySelectorAll('.table-scroll-container, .ant-table-container, .ant-table-content');
+        innerScrollContainers.forEach(container => {
+            if (container) {
+                container.style.overflow = 'visible';
+                container.style.width = '100%';
+            }
+        });
+        
+        // 检查是否是移动设备
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+            const table = this.container.querySelector('table');
+            if (table) {
+                table.style.minWidth = '650px';
+            }
+        }
     }
 
     /**
@@ -81,7 +120,7 @@ class Table {
                         <div class="ant-table ${sizeClass}">
                             <div class="ant-table-container">
                                 <div class="ant-table-content">
-                                    <table>
+                                    <table style="min-width: 100%;">
                                         <thead class="ant-table-thead">
                                             <tr>
                                                 ${this.columns.map(col => 

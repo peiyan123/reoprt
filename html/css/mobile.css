@@ -6,14 +6,22 @@
     background: #fff;
     border-bottom: 1px solid #f0f0f0;
     padding: 16px;
-    text-align: center;
 }
 
-.mobile-report-header h2 {
-    margin: 0;
+.mobile-report-title {
+    margin: 0 0 8px 0;
     font-size: 18px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.85);
+    text-align: center;
+}
+
+.mobile-report-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.45);
 }
 
 .mobile-buttons {
@@ -21,11 +29,41 @@
     padding: 16px;
     background: #fafafa;
     border-bottom: 1px solid #f0f0f0;
+    flex-wrap: wrap;
+    background-color: #f5f5f5;
+    gap: 8px;
+}
+
+/* 移动端Tab标题区域 */
+.mobile-tab-header {
+    display: none;
+    padding: 16px 0 8px 0;
+    border-bottom: 1px solid #E0E0E0;
+    background-color: #ffffff;
+    margin-bottom: 8px; 
+}
+
+.mobile-tab-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    margin: 0;
+    color: #333333;
+    text-align: left;
 }
 
 .mobile-buttons .ant-btn {
-    margin-right: 8px;
-    margin-bottom: 8px;
+    border-radius: 4px;
+    padding: 8px 12px;
+    background: #EBEBEB;
+    color: #4D4D4D;
+    margin: 0;
+}
+
+.mobile-buttons .ant-btn.active,
+.mobile-buttons .ant-btn-primary {
+    background: #FFFFFF;
+    color: #00532C;
 }
 
 /* 响应式设计 - 移动端适配 */
@@ -42,44 +80,143 @@
     }
     
     /* 显示移动端专用元素 */
-    .mobile-report-header,
-    .mobile-buttons {
+    .mobile-report-header {
         display: block !important;
+        background-color: #f5f5f5;
     }
     
-    /* 隐藏PC端标签页 */
+    .mobile-buttons {
+        display: flex !important;
+    }
+    
+    /* 移除内容区域的内边距 */
+    .content-wrapper {
+        padding: 0;
+    }
+    
+    /* 隐藏PC端标签页和重复的标题信息 */
     .top-tabs {
         display: none;
     }
     
+    /* 在移动端内容区域隐藏报告头部信息 */
+    .report-header {
+        display: none !important;
+    }
+    
     /* 表格移动端适配 */
-    .ant-table-cell {
-        padding: 8px;
-        font-size: 12px;
-    }
-    
-    .ant-table-thead > tr > th {
-        padding: 8px;
-        font-size: 12px;
-    }
-    
+    .ant-table-cell,
+    .ant-table-thead > tr > th,
     .ant-table-tbody > tr > td {
         padding: 8px;
         font-size: 12px;
     }
     
-    /* 表格水平滚动 */
-    .ant-table-wrapper {
+    /* 表格水平滚动 - 简化版 */
+    /* 表格容器滚动设置 - 仅在最外层容器设置滚动 */
+    .table-container {
+        margin-bottom: 16px;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        display: block;
+        position: relative;
     }
     
+    /* 移除内部容器的滚动设置，避免双滚动条 */
+    .table-responsive {
+        width: 100%;
+        position: relative;
+        display: block;
+        overflow: visible;
+    }
+
+    .table-scroll-container {
+        width: 100%;
+        position: relative;
+        overflow: visible;
+    }
+    
+    .ant-table-wrapper {
+        width: 100%;
+        position: relative;
+        display: block;
+        overflow: visible;
+    }
+    
+    .ant-table-container {
+        position: relative;
+        overflow: visible;
+    }
+    
+    /* 强制表格显示滚动条 */
     .ant-table {
-        min-width: 600px;
+        min-width: 650px !important;
+        table-layout: auto;
+    }
+    
+    .ant-table table {
+        min-width: 650px !important;
+        width: auto !important;
+        table-layout: auto;
+    }
+    
+    /* 移除多余的滚动指示器，只在外层容器保留 */
+    .table-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.05));
+        opacity: 0.3;
+        pointer-events: none;
+    }
+    
+    /* 修复表格边框和文本显示问题 */
+    .ant-table-cell {
+        white-space: nowrap;
+    }
+    
+    /* 简化滚动条样式，只对外层容器设置 */
+    .table-container::-webkit-scrollbar {
+        height: 6px;
+        display: block;
+    }
+    
+    .table-container::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
     }
     
     /* 内容区块移动端优化 */
     .content-section {
         margin-bottom: 24px;
+    }
+    
+    /* 移动端一级标题优化 */
+    .section-header {
+        padding-right: 42px; /* 确保按钮不会遮挡文字 */
+        height: 46px; /* 固定高度为46px */
+        min-height: 46px; 
+        display: flex;
+        align-items: center; /* 垂直居中 */
+    }
+    
+    .section-header .h1-title {
+        font-size: 18px;
+        line-height: 1.4;
+        padding-right: 10px;
+        display: flex;
+        align-items: center; /* 确保文字垂直居中 */
+        min-height: 46px; /* 与header保持一致 */
+    }
+    
+    .section-toggle-btn {
+        right: 5px;
+        width: 36px;
+        height: 36px;
     }
     
     .content-section h2 {
@@ -124,10 +261,21 @@
     }
     
     .mobile-buttons .ant-btn {
-        margin-right: 6px;
-        margin-bottom: 6px;
-        flex: 1;
+        border-radius: 4px;
+        padding: 8px 12px;
+        background: #EBEBEB;
+        color: #4D4D4D;
+        margin: 0;
+        flex: none;
+        height: auto;
         min-width: auto;
+        border: 0px;
+    }
+    
+    .mobile-buttons .ant-btn.active,
+    .mobile-buttons .ant-btn-primary {
+        background-color: #FFFFFF !important;
+        color: #00532C;
     }
     
     /* 卡片移动端优化 */
@@ -186,10 +334,16 @@
         margin-top: 12px;
     }
     
-    /* 表格容器移动端优化 */
-    .table-container {
+    /* 表格容器移动端优化 - 统一设置 */
+    .table-container,
+    .section-content .table-container,
+    .section-content-container .table-container {
         margin-bottom: 16px;
-        overflow-x: auto;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        display: block;
+        position: relative;
     }
     
     .table-container .card {
@@ -206,13 +360,19 @@
     
     .table-container .table {
         font-size: 12px;
+        min-width: 650px !important;
+        width: auto !important;
     }
     
     .table-container .table th,
     .table-container .table td {
         padding: 6px 8px;
         font-size: 12px;
+        white-space: nowrap;
     }
+    
+    /* 移除水平滚动条的提示样式 */
+    /* 已移除左右滑动查看更多的提示 */
     
     /* 触摸优化 */
     .menu-item,
@@ -241,6 +401,7 @@
     /* 间距优化 */
     .main-content {
         flex-direction: column;
+        padding: 0px 16px;
     }
     
     /* 导航优化（如果在移动端显示的话） */
@@ -266,6 +427,11 @@
         padding: 12px;
     }
     
+    /* 超小屏幕下确保无内边距 */
+    .content-wrapper {
+        padding: 0;
+    }
+    
     .mobile-report-header {
         padding: 12px;
     }
@@ -276,16 +442,29 @@
     
     .mobile-buttons {
         padding: 12px;
-        display: flex;
+        display: flex !important;
         flex-wrap: wrap;
         gap: 8px;
     }
     
     .mobile-buttons .ant-btn {
-        flex: 1;
-        margin: 0;
-        min-width: calc(50% - 4px);
         font-size: 13px;
+    }
+    
+    /* 超小屏幕标题优化 */
+    .section-header .h1-title {
+        font-size: 16px;
+        padding-right: 4px;
+    }
+    
+    .section-header {
+        padding: 6px 38px 6px 3px;
+        min-height: 38px;
+    }
+    
+    .section-toggle-btn {
+        width: 32px;
+        height: 32px;
     }
     
     .content-section h2 {
@@ -325,6 +504,7 @@
 @media (max-width: 768px) and (orientation: landscape) {
     .mobile-report-header {
         padding: 8px 16px;
+        background-color: #f5f5f5;
     }
     
     .mobile-report-header h2 {
@@ -333,6 +513,11 @@
     
     .content-area {
         padding: 12px 16px;
+    }
+    
+    /* 横屏模式下确保无内边距 */
+    .content-wrapper {
+        padding: 0;
     }
     
     .ant-btn {

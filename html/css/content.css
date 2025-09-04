@@ -27,44 +27,40 @@
     font-size: 14px;
 }
 
-/* 确保内容区域中的展开符号不会显示 */
-.section-content .expand-icon,
-.recommend-text .expand-icon,
-.section-content-container .expand-icon {
+/* 内容区域内导航元素和图标处理 */
+.section-content-container .expand-icon,
+.section-content .expand-icon {
     display: none !important;
-}
-
-/* 确保内容区域中的导航元素不会干扰布局 */
-.section-content .menu-item,
-.recommend-text .menu-item,
-.section-content-container .menu-item {
-    display: block !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    background: none !important;
 }
 
 /* 一级标题折叠展开功能 */
 .section-header {
     display: flex;
-    align-items: center;
+    align-items: center; /* 垂直居中 */
     justify-content: space-between;
     position: relative;
     margin-bottom: 10px;
-    padding: 8px 2px 8px 3px;
+    padding: 0 40px 0 10px; /* 调整左右内边距 */
     background: #F5F5F5;
     border-radius: 4px;
+    min-height: 46px; /* 固定最小高度 */
 }
 
 .section-header .h1-title {
     margin: 0;
     flex: 1;
+    word-break: break-word;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    padding-right: 8px;
+    display: flex;
+    align-items: center; /* 确保文字垂直居中 */
+    min-height: 46px; /* 固定最小高度与header一致 */
 }
 
 .section-toggle-btn {
     cursor: pointer;
-    margin-left: auto;
     font-size: 16px;
     color: #808080;
     transition: all 0.3s;
@@ -74,6 +70,10 @@
     width: 32px;
     height: 32px;
     border-radius: 4px;
+    position: absolute;
+    right: 8px; /* 调整右侧距离 */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .section-toggle-btn svg {
@@ -100,36 +100,15 @@
     margin-bottom: 1em;
 }
 
-/* 清理可能的导航样式影响 */
-.section-content *,
-.recommend-text *,
-.section-content-container * {
-    max-height: none !important;
-    overflow: visible !important;
-}
-
-/* 移除正文中可能的导航相关转换效果 */
-.section-content .expanded,
-.recommend-text .expanded,
-.section-content-container .expanded {
-    transform: none !important;
-}
-
-/* 防止正文中出现▼符号 */
+/* 内容区域清理和修复 */
 .section-content-container::after,
-.section-content::after,
-.recommend-text::after {
+.section-content::after {
     content: "";
     display: block;
     clear: both;
 }
 
-/* 移除标题中的折叠图标 */
-.content-section > h2 .collapse-icon {
-    display: none !important;
-}
-
-/* 完全屏蔽折叠图标类 */
+/* 禁用折叠图标 */
 .collapse-icon {
     display: none !important;
 }

@@ -6,6 +6,7 @@
     <title>投资企业月报</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/pc.css">
+    <!-- 确保移动端样式在PC样式之后加载，以便覆盖 -->
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/content.css">
     <!-- Ant Design Icons CSS -->
@@ -68,6 +69,11 @@
                 <!-- 右侧正文 -->
                 <div class="content-area">
                     <div class="content-wrapper">
+                        <!-- 移动端Tab标题区域 -->
+                        <div class="mobile-tab-header" style="display: none;">
+                            <h2 class="mobile-tab-title"></h2>
+                        </div>
+                        
                         <!-- 桌面端标题区域 -->
                         <div class="report-header">
                             <h1 class="report-title"><span id="current-tab-name"></span></h1>

@@ -42,6 +42,35 @@ async function loadReportData() {
                     ]
                   },
                   {
+                    "type": "cardList",
+                    "item": [
+                      {
+                        "title": "本月应检车辆数（台）",
+                        "count": "12",
+                        "leftLabel": "较上月",
+                        "leftValue": "+8",
+                      },
+                      {
+                        "title": "本月应检车辆数（台）",
+                        "count": "12",
+                        "leftLabel": "较上月",
+                        "leftValue": "-8",
+                      },
+                      {
+                        "title": "本月应检车辆数（台）",
+                        "count": "12",
+                        "leftLabel": "较上月",
+                        "leftValue": "0",
+                      },
+                      {
+                        "title": "本月应检车辆数（台）",
+                        "count": "12",
+                        "leftLabel": "较上月",
+                        "leftValue": "+8",
+                      }
+                    ],
+                  },
+                  {
                     "title": "1.2、项目概述",
                     "type": "h2"
                   },
@@ -114,6 +143,21 @@ function updateReportHeader(data) {
         reportTitle.appendChild(currentTabName);
     }
     
+    // 更新移动端主标题
+    const mobileReportTitle = document.querySelector('.mobile-report-title');
+    if (mobileReportTitle) {
+        // 移动端不拼接tab名，只显示报告标题
+        mobileReportTitle.textContent = reportData.title;
+        
+        // 更新移动端Tab标题
+        const mobileTabTitle = document.querySelector('.mobile-tab-title');
+        if (mobileTabTitle) {
+            const tabName = reportData.tabList && reportData.tabList.length > 0 ? 
+                reportData.tabList[0].name : '首页';
+            mobileTabTitle.textContent = tabName;
+        }
+    }
+    
     // 更新公司名和时间
     const companyElements = document.querySelectorAll('.company-name');
     companyElements.forEach(element => {
@@ -123,8 +167,10 @@ function updateReportHeader(data) {
     const dateElements = document.querySelectorAll('.generate-date');
     dateElements.forEach(element => {
         if (element.closest('.mobile-report-info')) {
+            // 移动端只显示日期，不显示"生成日期"文字
             element.textContent = reportData.time;
         } else {
+            // PC端显示"生成日期"文字
             element.textContent = `生成日期：${reportData.time}`;
         }
     });
@@ -197,6 +243,19 @@ function generateTabs(data) {
     
     // 绑定标签页点击事件
     bindTabEvents();
+    
+    // 设置默认墨水条位置
+    setTimeout(() => {
+        const activeTab = document.querySelector('.ant-tabs-tab-active');
+        if (activeTab && inkBar) {
+            const tabRect = activeTab.getBoundingClientRect();
+            const navListRect = activeTab.parentElement.getBoundingClientRect();
+            
+            inkBar.style.width = `${tabRect.width}px`;
+            inkBar.style.left = `${tabRect.left - navListRect.left}px`;
+            inkBar.style.display = 'block';
+        }
+    }, 0);
 }
 
 // 绑定标签页点击事件
@@ -223,12 +282,27 @@ function bindTabEvents() {
 // 切换标签页
 function switchTab(tabKey) {
     // 更新标签页活动状态
+    let activeTabElement = null;
     document.querySelectorAll('.ant-tabs-tab').forEach(tab => {
         tab.classList.remove('ant-tabs-tab-active');
         if (tab.getAttribute('data-tab') === tabKey) {
             tab.classList.add('ant-tabs-tab-active');
+            activeTabElement = tab;
         }
     });
+    
+    // 更新墨水条位置
+    if (activeTabElement) {
+        const inkBar = document.querySelector('.ant-tabs-ink-bar');
+        if (inkBar) {
+            const tabRect = activeTabElement.getBoundingClientRect();
+            const navListRect = activeTabElement.parentElement.getBoundingClientRect();
+            
+            inkBar.style.width = `${tabRect.width}px`;
+            inkBar.style.left = `${tabRect.left - navListRect.left}px`;
+            inkBar.style.display = 'block';
+        }
+    }
     
     // 更新移动端按钮活动状态
     document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
@@ -268,14 +342,48 @@ function switchTab(tabKey) {
     
     // 更新当前标签名称
     const currentTabNameElement = document.getElementById('current-tab-name');
+    let tabName = '';
     if (currentTabNameElement) {
         const activeTabBtn = document.querySelector(`.ant-tabs-tab[data-tab="${tabKey}"] .ant-tabs-tab-btn`);
         if (activeTabBtn) {
-            currentTabNameElement.textContent = activeTabBtn.textContent;
+            tabName = activeTabBtn.textContent;
+            currentTabNameElement.textContent = tabName;
         }
     }
     
-    // 重新生成导航
+    // 在移动端视图中隐藏报告头部信息，仅显示tab标题
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+        // 隐藏报告头部信息
+        const reportHeader = document.querySelector('.report-header');
+        if (reportHeader) {
+            reportHeader.style.display = 'none';
+        }
+    }
+    
+// 更新移动端主标题
+const mobileReportTitle = document.querySelector('.mobile-report-title');
+if (mobileReportTitle && tabName) {
+    const reportData = window.reportData || {};
+    const title = reportData.title || document.title;
+    // 移动端不拼接tab名，只显示报告标题
+    mobileReportTitle.textContent = title;
+}
+
+// 更新移动端Tab标题
+const mobileTabTitle = document.querySelector('.mobile-tab-title');
+if (mobileTabTitle && tabName) {
+    mobileTabTitle.textContent = tabName;
+}
+
+// 在移动端视图中处理标题显示
+if (window.innerWidth < 768) {
+    // 隐藏报告头部中的标题信息，只保留移动端tab标题
+    const reportHeader = document.querySelector('.report-header');
+    if (reportHeader) {
+        reportHeader.style.display = 'none';
+    }
+}    // 重新生成导航
     if (window.initializeNavigation) {
         setTimeout(() => {
             window.initializeNavigation();
@@ -288,6 +396,7 @@ function generateContent(data) {
     if (!data || data.length === 0 || !data[0].tabList) return;
     
     const reportData = data[0];
+    const isMobile = window.innerWidth < 768; // 检查是否是移动端视图
     
     reportData.tabList.forEach((tab, tabIndex) => {
         if (!tab.titleList) return;
@@ -468,6 +577,9 @@ function generateSectionContent(parentElement, contentList) {
 async function initializeReportData() {
     const data = await loadReportData();
     try {
+        // 存储报告数据到全局变量，以便在切换标签时使用
+        window.reportData = data[0] || {};
+        
         updateReportHeader(data);
         generateTabs(data);
         generateContent(data);
@@ -480,6 +592,21 @@ async function initializeReportData() {
             
             // 初始化响应式布局
             handleResponsiveLayout();
+            
+            // 确保在初始加载时正确处理移动端视图
+            if (window.innerWidth < 768) {
+                // 隐藏报告头部信息，只显示移动端tab标题
+                const reportHeader = document.querySelector('.report-header');
+                if (reportHeader) {
+                    reportHeader.style.display = 'none';
+                }
+                
+                // 确保移动端tab标题显示
+                const mobileTabHeader = document.querySelector('.mobile-tab-header');
+                if (mobileTabHeader) {
+                    mobileTabHeader.style.display = 'block';
+                }
+            }
         }, 300);
     } catch (error) {
         console.error('渲染报告数据时出错:', error);
@@ -493,18 +620,33 @@ function handleResponsiveLayout() {
     // 处理移动端显示
     const mobileHeader = document.querySelector('.mobile-report-header');
     const mobileButtons = document.querySelector('.mobile-buttons');
+    const mobileTabHeader = document.querySelector('.mobile-tab-header');
     const desktopHeader = document.querySelector('.report-header');
     const sidebar = document.querySelector('.sidebar');
     
     if (mobileHeader && mobileButtons && desktopHeader && sidebar) {
         if (isMobile) {
+            // 移动端显示：显示移动端专用元素，隐藏PC端元素
             mobileHeader.style.display = 'block';
             mobileButtons.style.display = 'flex';
+            if (mobileTabHeader) {
+                mobileTabHeader.style.display = 'block';
+            }
             desktopHeader.style.display = 'none';
             sidebar.style.display = 'none';
+            
+            // 隐藏所有报告头部信息，只在移动端tab标题中显示
+            const reportHeader = document.querySelector('.report-header');
+            if (reportHeader) {
+                reportHeader.style.display = 'none';
+            }
         } else {
+            // PC端显示：隐藏移动端专用元素，显示PC端元素
             mobileHeader.style.display = 'none';
             mobileButtons.style.display = 'none';
+            if (mobileTabHeader) {
+                mobileTabHeader.style.display = 'none';
+            }
             desktopHeader.style.display = 'block';
             sidebar.style.display = 'block';
         }
