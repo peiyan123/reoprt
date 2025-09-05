@@ -30,6 +30,20 @@ async function loadReportData() {
                     "content": "这里是正文内容，文本内容需直接返回css样式支持的html格式字符串"
                   },
                   {
+                    "type": "chartRing",
+                    "title": "环卫器具模块分布图",
+                    "total": { "num" : 2350, "unit": '万个' },
+                    "changeInfo": { "num":6565, "unit": '个', "add":false },
+                    "dataSource": [
+                        { "value": 70.5, "name": '垃圾箱数量（万个）', "itemStyle": { "color": '#FFCF5F' } },
+                        { "value": 70.5, "name": '人力车数量（万个）', "itemStyle": { "color": '#2276FC' } },
+                        { "value": 55, "name": '其他器具数量（万个）', "itemStyle": { "color": '#52C066' } },
+                        { "value": 55, "name": '其他器具数量（万个）', "itemStyle": { "color": '#52C066' } },
+                        { "value": 55, "name": '其他器具数量（万个）', "itemStyle": { "color": '#52C066' } },
+                        { "value": 25, "name": '垃圾桶数量（万个）', "itemStyle": { "color": '#F99C58' } }
+                    ]
+                  },
+                  {
                     "type": "table",
                     "columns": [
                       { "title": "接口名称", "dataIndex": "name", "key": "name" },
@@ -560,6 +574,21 @@ function generateSectionContent(parentElement, contentList) {
                     }
                 }, 500);
             }
+        } else if (item.type === 'chartRing') {
+            // 创建提示框，使用Tips组件渲染
+            const container = document.createElement('div');
+            container.style.width = '100%';
+            container.style.height = '360px';
+            parentElement.appendChild(container);
+            // 使用chartRing类创建图标
+            if (window.ChartRing) {
+                const chartInstance = new window.ChartRing(container);
+                // 渲染表格
+                setTimeout(() => {
+                    chartInstance.render(item);
+                },30)
+            }
+            
         }
         
         // 处理嵌套内容，但避免在文本内容后面添加多余的展开按钮
