@@ -26,8 +26,18 @@ async function loadReportData() {
                   },
                   {
                     "type": "tips",
-                    "name": "下月改善建议",
+                    "name": "改善建议",
                     "content": "这里是正文内容，文本内容需直接返回css样式支持的html格式字符串"
+                  },
+                  {
+                    "type": "chartBar",
+                    "title": "车辆使用年限分布",
+                    "dataSource": [
+                        { "name": '3-5年', "value": 75 },
+                        { "name": '3年内', "value": 36 },
+                        { "name": '5-8年', "value": 31 },
+                        { "name": '8年以上', "value": 19 }
+                    ]
                   },
                   {
                     "type": "chartRing",
@@ -108,7 +118,7 @@ async function loadReportData() {
                   },
                   {
                     "type": "tips",
-                    "name": "下月改善建议",
+                    "name": "改善建议",
                     "content": "这里是正文内容，文本内容需直接返回css样式支持的html格式字符串"
                   },
                   {
@@ -578,11 +588,27 @@ function generateSectionContent(parentElement, contentList) {
             // 创建提示框，使用Tips组件渲染
             const container = document.createElement('div');
             container.style.width = '100%';
-            container.style.height = '360px';
+            container.style.height = '30vw';
+            container.style.margin = '10px 0';
             parentElement.appendChild(container);
             // 使用chartRing类创建图标
             if (window.ChartRing) {
                 const chartInstance = new window.ChartRing(container);
+                // 渲染表格
+                setTimeout(() => {
+                    chartInstance.render(item);
+                },30)
+            }
+        } else if (item.type === 'chartBar') {
+            // 创建提示框，使用Tips组件渲染
+            const container = document.createElement('div');
+            container.style.width = '100%';
+            container.style.height = '30vw';
+            container.style.margin = '10px 0';
+            parentElement.appendChild(container);
+            // 使用chartRing类创建图标
+            if (window.ChartBar) {
+                const chartInstance = new window.ChartBar(container);
                 // 渲染表格
                 setTimeout(() => {
                     chartInstance.render(item);

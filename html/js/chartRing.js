@@ -4,7 +4,9 @@
  * const chartRingInstance = new ChartRing(containerElement);
  * chartRingInstance.render({
  *   title: '表格标题', // 表格标题
- *   dataSource: [...], // 数据源
+ *   total: { "num" : 2350, "unit": '万个' }, // 环形图表中心显示的 总数量，null 则不显示
+ *   changeInfo: { "num":6565, "unit": '个', "add":false }, // 环形图表中心 左下角 显示的 较上个月的变化，null 则不显示
+ *   dataSource: [{ "value": 70.5, "name": '垃圾箱数量（万个）', "itemStyle": { "color": '#FFCF5F' } }, ...], // 环形图表 的显示数据，颜色属性是非必填的，array.length > 5 显示 ‘详情’ 按钮
  * });
  */
 
@@ -22,7 +24,13 @@ class ChartRing {
             backgroundColor: '#FAFAFA',
             title: {
                 text: '',
-                left: '20'
+                left: '20',
+                textStyle: {
+                    color: '#303133',          // 字体颜色
+                    fontSize: 14,           // 字体大小（px）
+                    lineHeight: 20,
+                    fontWeight: '500'     // 加粗程度（normal/bold/bolder/lighter）
+                }
             },
             tooltip: {
                 trigger: 'item',
@@ -51,12 +59,12 @@ class ChartRing {
             this.baseOption.graphic.push({
                 type: 'text',
                 left: 'center',
-                top: '40%',
+                top: '47%',
                 style: {
                     text: [`{a1|${options.total.num}}`, `{b1|总数量${options.total.unit?`（${options.total.unit}）`:''}}`].join('\n'),
                     rich: {
-                        a1: { fontSize: 36, fill: '#1A1A1A', textAlign: 'center' },
-                        b1: { fontSize: 16, fill: '#808080', textAlign: 'center', lineHeight: '36' }
+                        a1: { fontSize: 20, fill: '#1A1A1A', textAlign: 'center' },
+                        b1: { fontSize: 12, fill: '#808080', textAlign: 'center', lineHeight: '36' }
                     }
                 }
             })
@@ -65,14 +73,14 @@ class ChartRing {
         if (options.changeInfo) {
             this.baseOption.graphic.push({
                 type: 'text',
-                left: '10',
-                bottom: '10',
+                left: '25',
+                bottom: '20',
                 style: {
                     text: `{a1|较上月} ${options.changeInfo.add?`{b2|增加${options.changeInfo.num}${options.changeInfo.unit}↑}`:`{b1|减少${options.changeInfo.num}${options.changeInfo.unit}↓}`}`,
                     rich: {
                         a1: { fontSize: 12, fill: '#808080', textAlign: 'center' },
                         b1: { fontSize: 12, fill: '#00A857', textAlign: 'center', lineHeight: '36' },
-                        b2: { fontSize: 12, fill: '#a8000b', textAlign: 'center', lineHeight: '36' }
+                        b2: { fontSize: 12, fill: '#C9353F', textAlign: 'center', lineHeight: '36' }
                     }
                 }
             })
@@ -81,8 +89,8 @@ class ChartRing {
         if (options.dataSource.length>5) {
             this.baseOption.graphic.push({
                 type: 'text',
-                right: '2%',
-                top: '5%',
+                right: '25',
+                top: '25',
                 style: {
                     text: '详情 >',
                     fill: '#006F3F'
@@ -98,7 +106,8 @@ class ChartRing {
         this.baseOption.series = [{
             type: 'pie',
             name: options.title,
-            radius: ['50%', '60%'],
+            radius: ['40%', '50%'],
+            top: 30,
             emphasis: {
                 label: {
                     show: true,
@@ -134,7 +143,7 @@ class ChartRing {
             },
             labelLine: {
                 length: 20,    // 第一段引导线长度
-                length2: 180,   // 第二段引导线长度
+                length2: 160,   // 第二段引导线长度
                 smooth: true,
                 lineStyle: { width: 1, color: '#ccc' }
             },
@@ -152,6 +161,9 @@ class ChartRing {
             // ]
         }]
         this.chart.setOption(this.baseOption)
+        window.addEventListener('resize', () => {
+            this.chart.resize()
+        });
     }
     
 }
