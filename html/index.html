@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1329669_u69w8yhxdu.css">
     <!-- 箭头图标 -->
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1788044_0dwu4guekcwr.css">
+    <!-- PDF导出库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <div id="app">
@@ -23,22 +26,27 @@
                         <div role="tablist" class="ant-tabs-nav">
                             <div class="ant-tabs-nav-wrap">
                                 <div class="ant-tabs-nav-list">
-                                    <!-- Tab导航将由JS动态生成 -->
+                                    <!-- Tab导航 -->
                                 </div>
                             </div>
                         </div>
                         <div class="ant-tabs-content-holder">
                             <div class="ant-tabs-content ant-tabs-content-top">
-                                <!-- Tab内容将由JS动态生成 -->
+                                <!-- Tab内容 -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 移动端标题区域 -->
+            <!-- 移动端标题-->
             <div class="mobile-report-header" style="display: none;">
-                <h1 class="mobile-report-title"></h1>
+                <div class="mobile-header-top">
+                    <h1 class="mobile-report-title"></h1>
+                    <!-- <div class="mobile-actions">
+                        <button id="mobile-export-pdf-btn" class="mobile-export-pdf-btn">导出PDF</button>
+                    </div> -->
+                </div>
                 <div class="mobile-report-info">
                     <span class="company-name"></span>
                     <span class="generate-date"></span>
@@ -47,7 +55,7 @@
 
             <!-- 移动端按钮样式 -->
             <div class="mobile-buttons" style="display: none;">
-                <!-- 移动端Tab按钮将由JS动态生成 -->
+                <!-- 移动端Tab按钮 -->
             </div>
 
             <!-- 主体内容区域 -->
@@ -59,7 +67,7 @@
                     </div>
                     <div class="navigation-menu">
                         <div class="custom-menu" id="navigation-container">
-                            <!-- 导航菜单将由JS动态生成 -->
+                            <!-- 导航菜单 -->
                         </div>
                     </div>
                 </div>
@@ -67,23 +75,30 @@
                 <!-- 右侧正文 -->
                 <div class="content-area">
                     <div class="content-wrapper">
-                        <!-- 移动端Tab标题区域 -->
+                        <!-- 移动端Tab标题区-->
                         <div class="mobile-tab-header" style="display: none;">
                             <h2 class="mobile-tab-title"></h2>
                         </div>
                         
-                        <!-- 桌面端标题区域 -->
+                        <!-- 桌面端标题区 -->
                         <div class="report-header">
-                            <h1 class="report-title"><span id="current-tab-name"></span></h1>
-                            <div class="report-info">
-                                <span class="company-name"></span>
-                                <span class="generate-date"></span>
+                            <div class="report-actions">
+                                <button id="export-pdf-btn" class="export-pdf-btn">导出PDF</button>
+                            </div>
+                            <div class="report-header-top">
+                                <div class="report-title-container">
+                                    <h1 class="report-title"><span id="current-tab-name"></span></h1>
+                                    <div class="report-info">
+                                        <span class="company-name"></span>
+                                        <span class="generate-date"></span>
+                                    </div>
+                                </div>
+                               
                             </div>
                         </div>
                         
-                        <!-- Tab 内容区域将由JS动态生成 -->
+                        <!-- Tab 内容区域 -->
                         <div id="report-content-container">
-                            <!-- 报告内容将由JS动态生成 -->
                         </div>
                     </div>
                 </div>
@@ -99,6 +114,8 @@
     <script src="js/navigation.js"></script>
     <script src="js/table.js"></script>
     <script src="js/tips.js"></script>
+    <script src="js/cardList.js"></script>
+    <script src="js/tab.js"></script>
     <script src="js/dataLoader.js"></script>
     <script src="js/app.js"></script>
 </body>

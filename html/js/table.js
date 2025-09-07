@@ -1,18 +1,4 @@
 /**
- * Table组件 - 根据JSON数据渲染表格
- * 使用方法：
- * const tableInstance = new Table(containerElement);
- * tableInstance.render({
- *   columns: [...], // 列配置
- *   dataSource: [...], // 数据源
- *   pagination: true, // 是否分页
- *   pageSize: 10, // 每页条数
- *   title: '表格标题', // 表格标题
- *   size: 'middle' // 表格大小：small, middle, default
- * });
- */
-
-/**
  * Table类 - 表格渲染组件
  */
 class Table {

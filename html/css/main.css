@@ -1,4 +1,282 @@
-/* 合并后的CSS - 包含主样式、内容样式和PC端样式 */
+/* ===== 卡片网格布局 ===== */
+.card-grid-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 16px;
+    background: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    padding-left: 0px;
+}
+
+.card-grid-row-container {
+    display: flex;
+    width: auto;
+    margin-bottom: 16px;
+    border: 1px solid #e0e0e0;
+    padding: 16px 0 16px 16px;
+}
+
+.card-grid-row-container:last-child {
+    margin-bottom: 0;
+}
+
+.card-grid-break {
+    flex-basis: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.card-grid-item {
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-right: 1px solid #e0e0e0;
+    padding-right: 16px;
+    margin-right: 16px;
+}
+
+.card-grid-row-container .card-grid-item:last-child {
+    border-right: none;
+    padding: 0;
+    margin-right: 0;
+    padding-right: 16px;
+}
+
+.card-grid-item .pc-card {
+    width: 100%;
+}
+
+.card-grid-item .mobile-card {
+    width: 100%;
+}
+
+/* ===== 卡片列表样式 ===== */
+.card-list-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    position: relative;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 16px;
+    background: #fff;
+    justify-content: flex-start;
+    align-items: center;
+    width: fit-content;
+}
+
+/* PC端卡片行样式 */
+.pc-card-row {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* PC端最后一行样式 - 不满的情况 */
+.pc-last-row {
+    width: max-content;
+}
+
+/* PC端卡片样式，确保所有卡片宽度一致 */
+.pc-card {
+    min-width: 0;
+    width: 100% !important;
+}
+
+/* 卡片样式 */
+.card-item {
+    flex: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #fff;
+}
+
+/* 卡片标题样式 */
+.card-title {
+    color: #808080;
+    font-size: 12px;
+    font-weight: normal;
+    margin-bottom: 4px;
+    /* 默认依然是单行省略，移动端会特别处理 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 卡片数值样式 */
+.card-count {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+    color: #1A1A1A;
+    margin-bottom: 4px;
+}
+
+/* 卡片信息行样式 */
+.card-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+/* 左侧信息样式 */
+.card-left-info {
+    display: flex;
+    align-items: center;
+}
+
+/* 左侧标签样式 */
+.card-left-label {
+    color: #808080;
+    margin-right: 4px;
+}
+
+/* 左侧值样式 - 上升 */
+.card-value-up {
+    color: #00A857;
+    display: flex;
+    align-items: center;
+}
+
+/* 左侧值样式 - 下降 */
+.card-value-down {
+    color: #D35A21;
+    display: flex;
+    align-items: center;
+}
+
+/* 左侧值样式 - 持平 */
+.card-value-neutral {
+    color: #B2B2B2;
+}
+
+/* 右侧信息样式 */
+.card-right-info {
+    color: #808080;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 进度条容器样式 */
+.card-progress-container {
+    width: 100%;
+    height: 4px;
+    background-color: #f0f0f0;
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+/* 进度条样式 */
+.card-progress-bar {
+    height: 100%;
+    background-color: #00A857;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* 底部行样式 */
+.card-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #808080;
+    margin-top: 4px;
+    line-height: 18px;
+}
+
+/* 底部标签样式 */
+.card-bottom-label {
+    display: flex;
+    align-items: center;
+}
+
+/* 差异值样式 */
+.card-difference-value {
+    margin-left: 10px;
+}
+
+/* 卡片分隔线样式 */
+.card-separator {
+    width: 1px;
+    min-width: 1px;
+    flex: 0 0 1px;
+    height: 48px;
+    background-color: #e0e0e0;
+    margin: auto -8px;
+    align-self: center;
+    display: block;
+}
+
+/* 详情按钮样式 */
+.card-details-btn {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #4d4d4d;
+}
+
+.card-details-btn:hover {
+    background: #e0e0e0;
+}
+
+/* 模态窗口样式 */
+.card-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.card-modal-content {
+    background: #fff;
+    border-radius: 4px;
+    padding: 24px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.card-modal-close {
+    margin-top: 16px;
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+}
+
+.card-table-container {
+    margin-top: 16px;
+    max-height: 500px;
+    overflow-y: auto;
+}
 
 /* ===== 基础全局样式 ===== */
 /* 全局body样式 */
@@ -1074,4 +1352,78 @@ body {
 .mobile-report-header,
 .mobile-buttons {
     display: none;
+}
+
+/* ===== PDF导出相关样式 ===== */
+/* 导出PDF按钮样式 */
+.export-pdf-btn, .mobile-export-pdf-btn {
+    background-color: #00532C;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.export-pdf-btn:hover, .mobile-export-pdf-btn:hover {
+    background-color: #006F3F;
+}
+
+.report-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.report-title-container {
+    flex: 1;
+}
+
+.report-actions {
+    margin-left: 20px;
+    margin-top: 4px;
+}
+
+.mobile-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.mobile-export-pdf-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+}
+
+/* PDF导出优化样式 */
+.pdf-page-break {
+    break-after: page;
+}
+/* 专门用于PDF导出的样式 */
+.chart-container, [id^="chart-"] {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
+.chart-image-for-pdf {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
+/* 确保所有图表不会被分割 */
+@media print {
+  .chart-container, [id^="chart-"], .chart-image-for-pdf {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }

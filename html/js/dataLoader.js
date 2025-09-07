@@ -73,25 +73,71 @@ async function loadReportData() {
                         "count": "12",
                         "leftLabel": "较上月",
                         "leftValue": "+8",
+                        "rightLabel": "",   //可以不传
+                        "rightValue": "",   //可以不传
                       },
-                      {
-                        "title": "本月应检车辆数（台）",
-                        "count": "12",
-                        "leftLabel": "较上月",
-                        "leftValue": "-8",
-                      },
-                      {
-                        "title": "本月应检车辆数（台）",
-                        "count": "12",
-                        "leftLabel": "较上月",
-                        "leftValue": "0",
-                      },
-                      {
+                          {
                         "title": "本月应检车辆数（台）",
                         "count": "12",
                         "leftLabel": "较上月",
                         "leftValue": "+8",
-                      }
+                        "rightLabel": "",   //可以不传
+                        "rightValue": "",   //可以不传
+                      },
+                          {
+                        "title": "本月应检车辆数（台）",
+                        "count": "12",
+                        "leftLabel": "较上月",
+                        "leftValue": "+8",
+                        "rightLabel": "",   //可以不传
+                        "rightValue": "",   //可以不传
+                      },
+                      // {
+                      //   "title": "本月应检车辆数（台）",
+                      //   "count": "12",
+                      //   "leftLabel": "",
+                      //   "leftValue": "",
+                      //   "rightLabel": "较上月",   //可以不传
+                      //   "rightValue": "+8",   //可以不传
+                      //   "progress": "70",
+                      //   "bottomLabel": "去年同期", //可以不传
+                      //   "bottomValue": "26%", //可以不传
+                      //   "differenceValue": "+10%",
+                      // },
+                      //   {
+                      //   "title": "本月应检车辆数（台）",
+                      //   "count": "12",
+                      //   "leftLabel": "",
+                      //   "leftValue": "",
+                      //   "rightLabel": "较上月",   //可以不传
+                      //   "rightValue": "+8",   //可以不传
+                      //   "progress": "70",
+                      //   "bottomLabel": "去年同期", //可以不传
+                      //   "bottomValue": "26%", //可以不传
+                      //   "differenceValue": "+10%",
+                      // },
+                      // {
+                      //   "title": "本月应检车辆数（台）",
+                      //   "count": "12",
+                      //   "leftLabel": "",
+                      //   "leftValue": "",
+                      //   "rightLabel": "较上月",   //可以不传
+                      //   "rightValue": "+8",   //可以不传
+                      //   "progress": "70",
+                      //   "columns": [
+                      //     { "title": "接口名称", "dataIndex": "name", "key": "name" },
+                      //     { "title": "请求方式", "dataIndex": "method", "key": "method" },
+                      //     { "title": "请求URL", "dataIndex": "url", "key": "url" }
+                      //   ],     //  可以不传   
+                      //   "dataSource": [
+                      //     { "name": "获取用户信息", "method": "GET", "url": "/api/user/info"},
+                      //     { "name": "更新用户信息", "method": "POST", "url": "/api/user/update"},
+                      //     { "name": "更新用户信息", "method": "POST", "url": "/api/user/update"},
+                      //     { "name": "更新用户信息", "method": "POST", "url": "/api/user/update"},
+                      //     { "name": "更新用户信息", "method": "POST", "url": "/api/user/update"},
+                      //     { "name": "更新用户信息", "method": "POST", "url": "/api/user/update"},
+                      //   ]   //可以不传    表格上方的card  有dataSource且长度超过5显示详情按钮
+                      // },
                     ],
                   },
                   {
@@ -118,7 +164,7 @@ async function loadReportData() {
                   },
                   {
                     "type": "tips",
-                    "name": "改善建议",
+                    "name": "下月改善建议",
                     "content": "这里是正文内容，文本内容需直接返回css样式支持的html格式字符串"
                   },
                   {
@@ -201,218 +247,6 @@ function updateReportHeader(data) {
     
     // 更新页面标题
     document.title = reportData.title;
-}
-
-// 生成标签页
-function generateTabs(data) {
-    if (!data || data.length === 0 || !data[0].tabList) return;
-    
-    const tabList = data[0].tabList;
-    const tabsContainer = document.querySelector('.ant-tabs-nav-list');
-    const mobileTabsContainer = document.querySelector('.mobile-buttons');
-    const tabContentHolder = document.querySelector('.ant-tabs-content');
-    const reportContentContainer = document.getElementById('report-content-container');
-    
-    if (!tabsContainer || !mobileTabsContainer || !tabContentHolder || !reportContentContainer) return;
-    
-    // 清除现有标签页
-    tabsContainer.innerHTML = '';
-    mobileTabsContainer.innerHTML = '';
-    tabContentHolder.innerHTML = '';
-    reportContentContainer.innerHTML = '';
-    
-    // 添加标签页
-    tabList.forEach((tab, index) => {
-        const key = `tab-${index}`;
-        const isActive = index === 0;
-        
-        // 桌面端标签页
-        const tabElement = document.createElement('div');
-        tabElement.className = `ant-tabs-tab ${isActive ? 'ant-tabs-tab-active' : ''}`;
-        tabElement.setAttribute('data-tab', key);
-        tabElement.innerHTML = `<div role="tab" aria-selected="${isActive}" class="ant-tabs-tab-btn" tabindex="0">${tab.name}</div>`;
-        tabsContainer.appendChild(tabElement);
-        
-        // 移动端按钮
-        const mobileBtn = document.createElement('button');
-        mobileBtn.className = `ant-btn ${isActive ? 'ant-btn-primary mobile-tab-btn active' : 'mobile-tab-btn'}`;
-        mobileBtn.setAttribute('data-tab', key);
-        mobileBtn.textContent = tab.name;
-        mobileTabsContainer.appendChild(mobileBtn);
-        
-        // 标签内容区域
-        const contentElement = document.createElement('div');
-        contentElement.role = 'tabpanel';
-        contentElement.tabIndex = isActive ? 0 : -1;
-        contentElement.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        contentElement.className = `ant-tabs-tabpane ${isActive ? 'ant-tabs-tabpane-active' : ''}`;
-        contentElement.id = `tab-content-${key}`;
-        contentElement.style.display = isActive ? 'block' : 'none';
-        contentElement.setAttribute('data-tab-content', key);
-        
-        tabContentHolder.appendChild(contentElement);
-        
-        // 为每个标签页创建内容容器
-        const tabContentContainer = document.createElement('div');
-        tabContentContainer.id = `tab-content-container-${key}`;
-        tabContentContainer.className = `tab-content ${isActive ? 'active' : ''}`;
-        tabContentContainer.style.display = isActive ? 'block' : 'none';
-        reportContentContainer.appendChild(tabContentContainer);
-    });
-    
-    // 添加墨水条
-    const inkBar = document.createElement('div');
-    inkBar.className = 'ant-tabs-ink-bar ant-tabs-ink-bar-animated';
-    tabsContainer.appendChild(inkBar);
-    
-    // 绑定标签页点击事件
-    bindTabEvents();
-    
-    // 设置默认墨水条位置
-    setTimeout(() => {
-        const activeTab = document.querySelector('.ant-tabs-tab-active');
-        if (activeTab && inkBar) {
-            const tabRect = activeTab.getBoundingClientRect();
-            const navListRect = activeTab.parentElement.getBoundingClientRect();
-            
-            inkBar.style.width = `${tabRect.width}px`;
-            inkBar.style.left = `${tabRect.left - navListRect.left}px`;
-            inkBar.style.display = 'block';
-        }
-    }, 0);
-}
-
-// 绑定标签页点击事件
-function bindTabEvents() {
-    // 桌面端标签页
-    const tabs = document.querySelectorAll('.ant-tabs-tab');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabKey = this.getAttribute('data-tab');
-            switchTab(tabKey);
-        });
-    });
-    
-    // 移动端标签页
-    const mobileTabs = document.querySelectorAll('.mobile-tab-btn');
-    mobileTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabKey = this.getAttribute('data-tab');
-            switchTab(tabKey);
-        });
-    });
-}
-
-// 切换标签页
-function switchTab(tabKey) {
-    // 更新标签页活动状态
-    let activeTabElement = null;
-    document.querySelectorAll('.ant-tabs-tab').forEach(tab => {
-        tab.classList.remove('ant-tabs-tab-active');
-        if (tab.getAttribute('data-tab') === tabKey) {
-            tab.classList.add('ant-tabs-tab-active');
-            activeTabElement = tab;
-        }
-    });
-    
-    // 更新墨水条位置
-    if (activeTabElement) {
-        const inkBar = document.querySelector('.ant-tabs-ink-bar');
-        if (inkBar) {
-            const tabRect = activeTabElement.getBoundingClientRect();
-            const navListRect = activeTabElement.parentElement.getBoundingClientRect();
-            
-            inkBar.style.width = `${tabRect.width}px`;
-            inkBar.style.left = `${tabRect.left - navListRect.left}px`;
-            inkBar.style.display = 'block';
-        }
-    }
-    
-    // 更新移动端按钮活动状态
-    document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-        btn.classList.remove('ant-btn-primary');
-        if (btn.getAttribute('data-tab') === tabKey) {
-            btn.classList.add('active');
-            btn.classList.add('ant-btn-primary');
-        }
-    });
-    
-    // 更新标签内容显示
-    document.querySelectorAll('.ant-tabs-tabpane').forEach(content => {
-        content.style.display = 'none';
-        content.classList.remove('ant-tabs-tabpane-active');
-        content.setAttribute('aria-hidden', 'true');
-        content.tabIndex = -1;
-        
-        if (content.id === `tab-content-${tabKey}`) {
-            content.style.display = 'block';
-            content.classList.add('ant-tabs-tabpane-active');
-            content.setAttribute('aria-hidden', 'false');
-            content.tabIndex = 0;
-        }
-    });
-    
-    // 更新报告内容显示
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.style.display = 'none';
-        content.classList.remove('active');
-        
-        if (content.id === `tab-content-container-${tabKey}`) {
-            content.style.display = 'block';
-            content.classList.add('active');
-        }
-    });
-    
-    // 更新当前标签名称
-    const currentTabNameElement = document.getElementById('current-tab-name');
-    let tabName = '';
-    if (currentTabNameElement) {
-        const activeTabBtn = document.querySelector(`.ant-tabs-tab[data-tab="${tabKey}"] .ant-tabs-tab-btn`);
-        if (activeTabBtn) {
-            tabName = activeTabBtn.textContent;
-            currentTabNameElement.textContent = tabName;
-        }
-    }
-    
-    // 在移动端视图中隐藏报告头部信息，仅显示tab标题
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-        // 隐藏报告头部信息
-        const reportHeader = document.querySelector('.report-header');
-        if (reportHeader) {
-            reportHeader.style.display = 'none';
-        }
-    }
-    
-// 更新移动端主标题
-const mobileReportTitle = document.querySelector('.mobile-report-title');
-if (mobileReportTitle && tabName) {
-    const reportData = window.reportData || {};
-    const title = reportData.title || document.title;
-    // 移动端不拼接tab名，只显示报告标题
-    mobileReportTitle.textContent = title;
-}
-
-// 更新移动端Tab标题
-const mobileTabTitle = document.querySelector('.mobile-tab-title');
-if (mobileTabTitle && tabName) {
-    mobileTabTitle.textContent = tabName;
-}
-
-// 在移动端视图中处理标题显示
-if (window.innerWidth < 768) {
-    // 隐藏报告头部中的标题信息，只保留移动端tab标题
-    const reportHeader = document.querySelector('.report-header');
-    if (reportHeader) {
-        reportHeader.style.display = 'none';
-    }
-}    // 重新生成导航
-    if (window.initializeNavigation) {
-        setTimeout(() => {
-            window.initializeNavigation();
-        }, 200);
-    }
 }
 
 // 生成内容区域
@@ -584,6 +418,34 @@ function generateSectionContent(parentElement, contentList) {
                     }
                 }, 500);
             }
+        } else if (item.type === 'cardList') {
+            // 创建卡片列表容器
+            const cardListContainer = document.createElement('div');
+            cardListContainer.className = 'section-content card-list-wrapper';
+            parentElement.appendChild(cardListContainer);
+            
+            // 使用CardList.js渲染卡片列表
+            if (window.CardList) {
+                // 直接使用CardList组件渲染
+                const cardListInstance = new window.CardList(cardListContainer);
+                
+                // 渲染卡片列表
+                cardListInstance.render(item);
+            } else {
+                // 如果CardList类未加载，显示加载信息并尝试延迟加载
+                cardListContainer.innerHTML = '<div class="loading">卡片列表加载中...</div>';
+                
+                // 延迟500ms后尝试再次加载CardList组件
+                setTimeout(() => {
+                    if (window.CardList) {
+                        cardListContainer.innerHTML = '';
+                        const cardListInstance = new window.CardList(cardListContainer);
+                        cardListInstance.render(item);
+                    } else {
+                        cardListContainer.innerHTML = '<div class="error">卡片列表组件加载失败，请确保cardList.js已正确加载</div>';
+                    }
+                }, 500);
+            }
         } else if (item.type === 'chartRing') {
             // 创建提示框，使用Tips组件渲染
             const container = document.createElement('div');
@@ -636,7 +498,13 @@ async function initializeReportData() {
         window.reportData = data[0] || {};
         
         updateReportHeader(data);
-        generateTabs(data);
+        // 使用tabManager生成标签页
+        if (window.tabManager && window.tabManager.generateTabs) {
+            window.tabManager.generateTabs(data);
+        } else {
+            console.error('tabManager不存在，请确保已加载tab.js文件');
+        }
+        
         generateContent(data);
         
         // 延迟初始化导航，确保DOM已完全渲染
@@ -717,10 +585,8 @@ window.addEventListener('resize', () => {
 window.dataLoader = {
     loadReportData,
     updateReportHeader,
-    generateTabs,
     generateContent,
-    initializeReportData,
-    switchTab
+    initializeReportData
 };
 
 // 自动初始化
