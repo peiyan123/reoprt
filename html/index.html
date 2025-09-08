@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1329669_u69w8yhxdu.css">
     <!-- 箭头图标 -->
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1788044_0dwu4guekcwr.css">
-    <!-- PDF导出库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <div id="app">
@@ -43,9 +40,6 @@
             <div class="mobile-report-header" style="display: none;">
                 <div class="mobile-header-top">
                     <h1 class="mobile-report-title"></h1>
-                    <!-- <div class="mobile-actions">
-                        <button id="mobile-export-pdf-btn" class="mobile-export-pdf-btn">导出PDF</button>
-                    </div> -->
                 </div>
                 <div class="mobile-report-info">
                     <span class="company-name"></span>
@@ -82,9 +76,6 @@
                         
                         <!-- 桌面端标题区 -->
                         <div class="report-header">
-                            <div class="report-actions">
-                                <button id="export-pdf-btn" class="export-pdf-btn">导出PDF</button>
-                            </div>
                             <div class="report-header-top">
                                 <div class="report-title-container">
                                     <h1 class="report-title"><span id="current-tab-name"></span></h1>
@@ -98,7 +89,7 @@
                         </div>
                         
                         <!-- Tab 内容区域 -->
-                        <div id="report-content-container">
+                        <div id="report-content-container" class="report-content-container">
                         </div>
                     </div>
                 </div>
