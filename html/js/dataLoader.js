@@ -32,6 +32,7 @@ async function loadReportData() {
                   {
                     "type": "chartBar",
                     "title": "车辆使用年限分布",
+                    "yName": { "name": "车辆数量（辆）"},
                     "dataSource": [
                         { "name": '3-5年', "value": 75 },
                         { "name": '3年内', "value": 36 },

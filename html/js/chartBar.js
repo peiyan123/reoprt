@@ -4,9 +4,8 @@
  * const chartBarInstance = new ChartBar(containerElement);
  * chartBarInstance.render({
  *   title: '表格标题', // 表格标题
- *   total: { "num" : 2350, "unit": '万个' }, // 环形图表中心显示的 总数量，null 则不显示
- *   changeInfo: { "num":6565, "unit": '个', "add":false }, // 环形图表中心 左下角 显示的 较上个月的变化，null 则不显示
- *   dataSource: [{ "value": 70.5, "name": '垃圾箱数量（万个）', "itemStyle": { "color": '#FFCF5F' } }, ...], // 环形图表 的显示数据，颜色属性是非必填的，array.length > 5 显示 ‘详情’ 按钮
+ *   yName: {name: '车辆数量（辆）'}] - y轴描述
+ *   dataSource: [{ "value": 70.5, "name": '垃圾箱数量（万个）', ...], 
  * });
  */
 
@@ -33,53 +32,15 @@ class ChartBar {
                 }
             },
             tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)'
+              trigger: 'item',
+              formatter: '{a} <br/>{b}: {c}'
             },
-
-            xAxis: {
-    type: 'category',
-    data: ['3-5年', '5年', '5-8年', '8年以上']
-  },
-  yAxis: {
-    type: 'value',
-    splitNumber: 10,
-    name: '车辆数量（辆）',  // 标题文本内容
-    nameLocation: 'end',  // 标题位置(end/start/center)
-    nameTextStyle: {  // 标题样式
-        color: '#666',
-        fontSize: 12,
-        padding: [0, 60, 0, 0]  // 上右下左间距
-    },
-    nameGap: 15  // 标题与轴线距离
-  },
-  series: [
-    {
-      data: [75, 36, 31, 19],
-      barWidth: '30%',
-      type: 'bar',
-      name: '111',
-                  grid: {
-                top: '15%',  // 支持百分比或像素值（如80）
-                containLabel: true  // 确保坐标轴标签包含在内
-            },
-      itemStyle: {
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: '#83bff6' },
-          { offset: 1, color: '#188df0' }
-        ])
-      },
-      label: {
-        show: true,     // 显示标签
-        position: 'top',// 标签位置（顶部）
-        formatter: '{c}',// 显示数据值
-        textStyle: {
-          color: '#333',// 文字颜色
-          fontSize: 12  // 文字大小
-        }
-      }
-    }
-  ]
+            grid: {
+              top: '25%',
+              left: '10%',
+              right: '10%',
+              bottom: '15%'
+            }
         };
     }
 
@@ -87,8 +48,7 @@ class ChartBar {
      * 渲染
      * @param {Object} options - 表格配置选项
      * @param {string} options.title - 标题
-     * @param {Object} [options.total={num:0,unit:'个'}] - 总数量
-     * @param {Object} [options.changeInfo={num:0,unit:'个',add:false}] - 左下角的提示较上月变化信息
+     * @param {Object} [options.yName={name: '车辆数量（辆）'}] - y轴描述
      * @param {Array} options.dataSource - 数据源
      */
     render(options = {}) {
@@ -96,8 +56,55 @@ class ChartBar {
         this.chart = echarts.init(this.container);
         // 设置属性
         this.baseOption.title.text = options.title;
-
-
+        // y轴的描述
+        if (options.yName) {
+          this.baseOption.yAxis = {
+            type: 'value',
+            splitNumber: 10,
+            name: '车辆数量（辆）',  // 标题文本内容
+            nameLocation: 'end',  // 标题位置(end/start/center)
+            nameTextStyle: {  // 标题样式
+                color: '#666',
+                fontSize: 12
+            },
+            nameGap: 15,  // 标题与轴线距离
+            ...options.yName
+          }
+        }
+        // x轴
+        if (options.dataSource) {
+          const total = options.dataSource.reduce((t,i) => (t+i.value), 0)
+          this.baseOption.xAxis = {
+            type: 'category',
+            data: options.dataSource.map(d => d.name)
+          };
+          // 柱状图
+          this.baseOption.series = [{
+            data: options.dataSource.map(d => d.value),
+            barWidth: '30%',
+            type: 'bar',
+            name: options.title,
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: '#83bff6' },
+                { offset: 1, color: '#188df0' }
+              ])
+            },
+            label: {
+              show: true,     // 显示标签
+              position: 'top',// 标签位置（顶部）
+              formatter: '{c}',// 显示数据值
+              textStyle: {
+                color: '#333',// 文字颜色
+                fontSize: 12  // 文字大小
+              },
+              formatter: (params) => {
+                const value = params.value;
+                return `${value} (${((value / total) * 100).toFixed(2)}%)`;
+              }
+            }
+          }]
+        }
         this.chart.setOption(this.baseOption)
         window.addEventListener('resize', () => {
             this.chart.resize()
